@@ -97,6 +97,52 @@
 
         </li>
 
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">dot-prop.</span>index</span>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.dot-prop.index">module dot-prop.index</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.dot-prop.index.delete">
+            function <span class="apidocSignatureSpan">dot-prop.index.</span>delete
+            <span class="apidocSignatureSpan">(obj, path)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.dot-prop.index.get">
+            function <span class="apidocSignatureSpan">dot-prop.index.</span>get
+            <span class="apidocSignatureSpan">(obj, path, value)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.dot-prop.index.has">
+            function <span class="apidocSignatureSpan">dot-prop.index.</span>has
+            <span class="apidocSignatureSpan">(obj, path)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.dot-prop.index.set">
+            function <span class="apidocSignatureSpan">dot-prop.index.</span>set
+            <span class="apidocSignatureSpan">(obj, path, value)</span>
+            </a>
+
+        </li>
+
     </ol></li>
 
 </ol></div>
@@ -265,6 +311,218 @@ console.log(obj);
     <h2>
         <a href="#apidoc.element.dot-prop.set" id="apidoc.element.dot-prop.set">
         function <span class="apidocSignatureSpan">dot-prop.</span>set
+        <span class="apidocSignatureSpan">(obj, path, value)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">set(obj, path, value) {
+		if (!isObj(obj) || typeof path !== &#x27;string&#x27;) {
+			return;
+		}
+
+		const pathArr = getPathSegments(path);
+
+		for (let i = 0; i &#x3c; pathArr.length; i++) {
+			const p = pathArr[i];
+
+			if (!isObj(obj[p])) {
+				obj[p] = {};
+			}
+
+			if (i === pathArr.length - 1) {
+				obj[p] = value;
+			}
+
+			obj = obj[p];
+		}
+	}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+//=&#x3e; &#x27;default value&#x27;
+
+dotProp.get({foo: {&#x27;dot.dot&#x27;: &#x27;unicorn&#x27;}}, &#x27;foo.dot\\.dot&#x27;);
+//=&#x3e; &#x27;unicorn&#x27;
+
+// setter
+const obj = {foo: {bar: &#x27;a&#x27;}};
+dotProp.<span class="apidocCodeKeywordSpan">set</span>(obj, &#x27;foo.bar&#x27;, &#x27;b&#x27;);
+console.log(obj);
+//=&#x3e; {foo: {bar: &#x27;b&#x27;}}
+
+dotProp.set(obj, &#x27;foo.baz&#x27;, &#x27;x&#x27;);
+console.log(obj);
+//=&#x3e; {foo: {bar: &#x27;b&#x27;, baz: &#x27;x&#x27;}}
+...</pre></li>
+    </ul>
+
+
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.dot-prop.index" id="apidoc.module.dot-prop.index">module dot-prop.index</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.dot-prop.index.delete" id="apidoc.element.dot-prop.index.delete">
+        function <span class="apidocSignatureSpan">dot-prop.index.</span>delete
+        <span class="apidocSignatureSpan">(obj, path)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">delete(obj, path) {
+		if (!isObj(obj) || typeof path !== &#x27;string&#x27;) {
+			return;
+		}
+
+		const pathArr = getPathSegments(path);
+
+		for (let i = 0; i &#x3c; pathArr.length; i++) {
+			const p = pathArr[i];
+
+			if (i === pathArr.length - 1) {
+				delete obj[p];
+				return;
+			}
+
+			obj = obj[p];
+
+			if (!isObj(obj)) {
+				return;
+			}
+		}
+	}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+// has
+dotProp.has({foo: {bar: &#x27;unicorn&#x27;}}, &#x27;foo.bar&#x27;);
+//=&#x3e; true
+
+// deleter
+const obj = {foo: {bar: &#x27;a&#x27;}};
+dotProp.<span class="apidocCodeKeywordSpan">delete</span>(obj, &#x27;foo.bar&#x27;);
+console.log(obj);
+//=&#x3e; {foo: {}}
+
+obj.foo.bar = {x: &#x27;y&#x27;, y: &#x27;x&#x27;};
+dotProp.delete(obj, &#x27;foo.bar.x&#x27;);
+console.log(obj);
+//=&#x3e; {foo: {bar: {y: &#x27;x&#x27;}}}
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.dot-prop.index.get" id="apidoc.element.dot-prop.index.get">
+        function <span class="apidocSignatureSpan">dot-prop.index.</span>get
+        <span class="apidocSignatureSpan">(obj, path, value)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">get(obj, path, value) {
+		if (!isObj(obj) || typeof path !== &#x27;string&#x27;) {
+			return value === undefined ? obj : value;
+		}
+
+		const pathArr = getPathSegments(path);
+
+		for (let i = 0; i &#x3c; pathArr.length; i++) {
+			if (!Object.prototype.propertyIsEnumerable.call(obj, pathArr[i])) {
+				return value;
+			}
+
+			obj = obj[pathArr[i]];
+
+			if (obj === undefined || obj === null) {
+				// `obj` is either `undefined` or `null` so we want to stop the loop, and
+				// if this is not the last bit of the path, and
+				// if it did&#x27;t return `undefined`
+				// it would return `null` if `obj` is `null`
+				// but we want `get({foo: null}, &#x27;foo.bar&#x27;)` to equal `undefined`, or the supplied value, not `null`
+				if (i !== pathArr.length - 1) {
+					return value;
+				}
+
+				break;
+			}
+		}
+
+		return obj;
+	}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+## Usage
+
+```js
+const dotProp = require(&#x27;dot-prop&#x27;);
+
+// getter
+dotProp.<span class="apidocCodeKeywordSpan">get</span>({foo: {bar: &#x27;unicorn&#x27;}}, &#x27;foo.bar&#x27;);
+//=&#x3e; &#x27;unicorn&#x27;
+
+dotProp.get({foo: {bar: &#x27;a&#x27;}}, &#x27;foo.notDefined.deep&#x27;);
+//=&#x3e; undefined
+
+dotProp.get({foo: {bar: &#x27;a&#x27;}}, &#x27;foo.notDefined.deep&#x27;, &#x27;default value&#x27;);
+//=&#x3e; &#x27;default value&#x27;
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.dot-prop.index.has" id="apidoc.element.dot-prop.index.has">
+        function <span class="apidocSignatureSpan">dot-prop.index.</span>has
+        <span class="apidocSignatureSpan">(obj, path)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">has(obj, path) {
+		if (!isObj(obj) || typeof path !== &#x27;string&#x27;) {
+			return false;
+		}
+
+		const pathArr = getPathSegments(path);
+
+		for (let i = 0; i &#x3c; pathArr.length; i++) {
+			if (isObj(obj)) {
+				if (!(pathArr[i] in obj)) {
+					return false;
+				}
+
+				obj = obj[pathArr[i]];
+			} else {
+				return false;
+			}
+		}
+
+		return true;
+	}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+//=&#x3e; {foo: {bar: &#x27;b&#x27;}}
+
+dotProp.set(obj, &#x27;foo.baz&#x27;, &#x27;x&#x27;);
+console.log(obj);
+//=&#x3e; {foo: {bar: &#x27;b&#x27;, baz: &#x27;x&#x27;}}
+
+// has
+dotProp.<span class="apidocCodeKeywordSpan">has</span>({foo: {bar: &#x27;unicorn&#x27;}}, &#x27;foo.bar&#x27;);
+//=&#x3e; true
+
+// deleter
+const obj = {foo: {bar: &#x27;a&#x27;}};
+dotProp.delete(obj, &#x27;foo.bar&#x27;);
+console.log(obj);
+//=&#x3e; {foo: {}}
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.dot-prop.index.set" id="apidoc.element.dot-prop.index.set">
+        function <span class="apidocSignatureSpan">dot-prop.index.</span>set
         <span class="apidocSignatureSpan">(obj, path, value)</span>
         </a>
     </h2>

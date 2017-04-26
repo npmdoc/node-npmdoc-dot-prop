@@ -1,6 +1,6 @@
 # npmdoc-dot-prop
 
-#### api documentation for  [dot-prop (v4.1.1)](https://github.com/sindresorhus/dot-prop#readme)  [![npm package](https://img.shields.io/npm/v/npmdoc-dot-prop.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-dot-prop) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-dot-prop.svg)](https://travis-ci.org/npmdoc/node-npmdoc-dot-prop)
+#### basic api documentation for  [dot-prop (v4.1.1)](https://github.com/sindresorhus/dot-prop#readme)  [![npm package](https://img.shields.io/npm/v/npmdoc-dot-prop.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-dot-prop) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-dot-prop.svg)](https://travis-ci.org/npmdoc/node-npmdoc-dot-prop)
 
 #### Get, set, or delete a property from a nested object using a dot path
 
@@ -84,7 +84,8 @@
     "version": "4.1.1",
     "xo": {
         "esnext": true
-    }
+    },
+    "bin": {}
 }
 ```
 

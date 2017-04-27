@@ -673,7 +673,7 @@ vendor\\)s\\{0,1\\}\\(\\b\\|_\\)\
                 tmp = options.circularList[key];
                 options.circularList.push(tmp && tmp.prototype);
             });
-            // cleanup circularList
+            // deduplicate circularList
             tmp = options.circularList;
             options.circularList = [];
             tmp.forEach(function (element) {
